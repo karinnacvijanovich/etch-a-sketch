@@ -1,0 +1,55 @@
+*{
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box;
+    background-color: blue;
+}
+
+html, body{
+    overflow: hidden; 
+    width: 100vw; 
+    height: 100vh; 
+    display: flex;
+    flex-direction: column; /* button and container are in a column */
+    align-items: center; 
+    justify-content: space-evenly;
+    gap: 5px;
+}
+
+.container{
+    display:flex; 
+    flex-direction: column; /* rows in container are in a column */
+    justify-content: center;
+    padding: calc(min(1vh, 1vw)); 
+    gap: 5px;
+    width: 100vw;
+    overflow: auto;
+}
+
+.grid-item{
+    border: 1px solid greenyellow; 
+    aspect-ratio: 1; 
+}
+
+[class^="row-"] {
+    display: flex; /* each row is a row */
+    justify-content: space-evenly; 
+}
+
+.button{
+    padding: 5px 70px;
+    border: 2px solid hotpink; 
+    border-radius: 5px;
+    color: greenyellow;
+    cursor: pointer;
+}
+
+.button:hover{
+    background-color: hotpink; 
+    color: greenyellow; 
+}
+
+.button:active{
+    background-color: greenyellow; 
+    color: hotpink;
+}
