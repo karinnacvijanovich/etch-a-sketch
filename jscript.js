@@ -5,14 +5,33 @@ let container = document.querySelector(".container");
 let buttonHeight; 
 let containerHeight; 
 
-function highlight(e){
-    e.target.style.transition = "none";
-    e.target.style.backgroundColor = "hotpink";
+function randomRainbow(){
+    const h = Math.floor(Math.random()*360);
+    return `hsla(${h}, 100%, 50%,`;
 }
 
-function unhighlight(e){
-    e.target.style.transition = "background-color 1s ease";
-    setTimeout(() => {e.target.style.backgroundColor = ""}, 30);
+function highlight(e){
+    e.target.style.transition = "none";
+    if(!e.target.opacityTracker){
+        e.target.opacityTracker = 0.3;
+    }
+    else if(e.target.opacityTracker<1){
+        e.target.opacityTracker +=0.1;
+    }
+    else{ // stay stuck at whatever color it is when reaches >= 100% opacity 
+        e.target.removeEventListener("mouseleave", unhighlight);
+        e.target.removeEventListener("mouseenter", highlight);
+    }
+    e.target.style.backgroundColor = randomRainbow() + ` ${e.target.opacityTracker})`;
+}
+
+function unhighlight(e){ // fade to nothing and then fade back to latest color/opacity for ink absorbtion effect 
+    e.target.style.transition = "background-color 0.5s ease";
+    let keepColor = e.target.style.backgroundColor;
+    e.target.style.backgroundColor = "";
+    setTimeout(() => {
+        e.target.style.backgroundColor = keepColor;
+    }, 500);
 }
 
 function makeButton(){ 
@@ -70,8 +89,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
     makeButton();
     resetGrid();
 });
-
-
 
 
 
